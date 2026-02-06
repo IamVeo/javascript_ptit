@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #fff7ed; /* Nền cam kem siêu nhạt */
+    background-color: #ecfdf5; /* Nền xanh bạc hà siêu nhạt */
     color: #333;
     line-height: 1.6;
     padding: 20px;
@@ -34,8 +34,8 @@ body {
 
 /* Header của Card */
 .card-header {
-    /* Gradient từ Cam đậm sang Cam cháy */
-    background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+    /* Gradient từ Xanh lá đậm sang Xanh ngọc */
+    background: linear-gradient(135deg, #059669 0%, #34d399 100%);
     color: white;
     padding: 20px 30px;
     text-align: center;
