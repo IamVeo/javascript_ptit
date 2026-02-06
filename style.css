@@ -1,4 +1,3 @@
-/* Reset CSS cơ bản */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,19 +6,17 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #ecfdf5; /* Nền xanh bạc hà siêu nhạt */
+    background-color: #ecfdf5;
     color: #333;
     line-height: 1.6;
     padding: 20px;
 }
 
-/* Layout chính */
 .main-container {
     max-width: 900px;
     margin: 0 auto;
 }
 
-/* Card Styling (Khung chứa) */
 .card {
     background: #fff;
     border-radius: 12px;
@@ -32,9 +29,7 @@ body {
     margin-top: 2rem;
 }
 
-/* Header của Card */
 .card-header {
-    /* Gradient từ Xanh lá đậm sang Xanh ngọc */
     background: linear-gradient(135deg, #059669 0%, #34d399 100%);
     color: white;
     padding: 20px 30px;
@@ -56,7 +51,6 @@ body {
     padding: 30px;
 }
 
-/* Form Styling */
 .form-container {
     display: flex;
     flex-direction: column;
@@ -68,7 +62,6 @@ body {
     gap: 20px;
 }
 
-/* Responsive: Trên màn hình nhỏ, form row thành 1 cột */
 @media (max-width: 600px) {
     .form-row {
         flex-direction: column;
@@ -104,7 +97,6 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-/* Buttons */
 .form-actions {
     margin-top: 10px;
     display: flex;
@@ -138,14 +130,13 @@ input:focus {
 .btn-secondary {
     background-color: #e2e8f0;
     color: #4a5568;
-    display: none; /* Mặc định ẩn */
+    display: none;
 }
 
 .btn-secondary:hover {
     background-color: #cbd5e0;
 }
 
-/* Table Styling */
 .table-title {
     margin-bottom: 15px;
     color: #2d3748;
@@ -161,7 +152,7 @@ input:focus {
 table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 600px; /* Đảm bảo bảng không bị co quá nhỏ */
+    min-width: 600px;
 }
 
 thead th {
@@ -186,7 +177,6 @@ tbody tr:hover {
     background-color: #f8fafc;
 }
 
-/* Action Buttons trong bảng */
 .action-btn {
     background-color: #edf2f7;
     color: #4a5568;
@@ -208,7 +198,6 @@ tbody tr:hover {
     text-align: center;
 }
 
-/* Bố cục header bảng + nút sắp xếp */
 .table-header-row {
     display: flex;
     justify-content: space-between;
@@ -219,14 +208,13 @@ tbody tr:hover {
 }
 
 .table-title {
-    margin-bottom: 0; /* Ghi đè margin cũ */
+    margin-bottom: 0;
     color: #2d3748;
     font-size: 1.2rem;
     border-left: 5px solid #667eea;
     padding-left: 10px;
 }
 
-/* Khu vực điều khiển sắp xếp */
 .table-controls {
     display: flex;
     align-items: center;
@@ -239,7 +227,6 @@ tbody tr:hover {
     margin-right: 5px;
 }
 
-/* Button nhỏ cho sắp xếp */
 .btn-sm {
     padding: 6px 12px;
     background-color: #edf2f7;
@@ -258,12 +245,10 @@ tbody tr:hover {
     border-color: #cbd5e0;
 }
 
-/* CSS cho cột Hành động (Action) */
 .action-col {
-    white-space: nowrap; /* Giữ các nút trên 1 dòng */
+    white-space: nowrap;
 }
 
-/* Base button hành động */
 .action-btn {
     border: none;
     padding: 6px 12px;
@@ -276,21 +261,21 @@ tbody tr:hover {
     display: inline-block;
 }
 
-/* Nút Sửa (Màu xanh nhẹ) */
 .edit-btn {
     background-color: #ebf8ff;
     color: #3182ce;
 }
+
 .edit-btn:hover {
     background-color: #3182ce;
     color: white;
 }
 
-/* Nút Xóa (Màu đỏ nhẹ) */
 .delete-btn {
     background-color: #fff5f5;
     color: #e53e3e;
 }
+
 .delete-btn:hover {
     background-color: #e53e3e;
     color: white;
