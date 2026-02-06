@@ -1,0 +1,208 @@
+/* Reset CSS cơ bản */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Layout chính */
+.main-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Card Styling (Khung chứa) */
+.card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.mt-4 {
+    margin-top: 2rem;
+}
+
+/* Header của Card */
+.card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px 30px;
+    text-align: center;
+}
+
+.card-header h2 {
+    font-weight: 600;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.card-header p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+/* Form Styling */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+/* Responsive: Trên màn hình nhỏ, form row thành 1 cột */
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+input {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Buttons */
+.form-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s, opacity 0.2s;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background-color: #667eea;
+    color: white;
+    flex: 1;
+}
+
+.btn-primary:hover {
+    background-color: #5a6fd6;
+}
+
+.btn-secondary {
+    background-color: #e2e8f0;
+    color: #4a5568;
+    display: none; /* Mặc định ẩn */
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e0;
+}
+
+/* Table Styling */
+.table-title {
+    margin-bottom: 15px;
+    color: #2d3748;
+    font-size: 1.2rem;
+    border-left: 5px solid #667eea;
+    padding-left: 10px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Đảm bảo bảng không bị co quá nhỏ */
+}
+
+thead th {
+    background-color: #f7fafc;
+    color: #4a5568;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding: 15px;
+    text-align: left;
+    border-bottom: 2px solid #edf2f7;
+}
+
+tbody td {
+    padding: 15px;
+    border-bottom: 1px solid #edf2f7;
+    color: #4a5568;
+    font-size: 0.95rem;
+}
+
+tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Action Buttons trong bảng */
+.action-btn {
+    background-color: #edf2f7;
+    color: #4a5568;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #667eea;
+    color: white;
+}
+
+.text-center {
+    text-align: center;
+}
