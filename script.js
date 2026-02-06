@@ -16,7 +16,6 @@ class Student {
 }
 
 let studentList = [
-    new Student("B36DCCN336", "Trịnh Thị Tuyết Anh", "2036-06-03", "D36CTCN01-B", 3.36),
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
