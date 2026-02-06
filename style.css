@@ -206,3 +206,91 @@ tbody tr:hover {
 .text-center {
     text-align: center;
 }
+
+/* Bố cục header bảng + nút sắp xếp */
+.table-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.table-title {
+    margin-bottom: 0; /* Ghi đè margin cũ */
+    color: #2d3748;
+    font-size: 1.2rem;
+    border-left: 5px solid #667eea;
+    padding-left: 10px;
+}
+
+/* Khu vực điều khiển sắp xếp */
+.table-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sort-label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-right: 5px;
+}
+
+/* Button nhỏ cho sắp xếp */
+.btn-sm {
+    padding: 6px 12px;
+    background-color: #edf2f7;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    color: #4a5568;
+}
+
+.btn-sm:hover {
+    background-color: #e2e8f0;
+    color: #2d3748;
+    border-color: #cbd5e0;
+}
+
+/* CSS cho cột Hành động (Action) */
+.action-col {
+    white-space: nowrap; /* Giữ các nút trên 1 dòng */
+}
+
+/* Base button hành động */
+.action-btn {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 0 2px;
+    transition: background 0.2s, color 0.2s;
+    display: inline-block;
+}
+
+/* Nút Sửa (Màu xanh nhẹ) */
+.edit-btn {
+    background-color: #ebf8ff;
+    color: #3182ce;
+}
+.edit-btn:hover {
+    background-color: #3182ce;
+    color: white;
+}
+
+/* Nút Xóa (Màu đỏ nhẹ) */
+.delete-btn {
+    background-color: #fff5f5;
+    color: #e53e3e;
+}
+.delete-btn:hover {
+    background-color: #e53e3e;
+    color: white;
+}
