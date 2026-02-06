@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản Lý Sinh Viên</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -59,7 +59,16 @@
 
     <div class="card mt-4">
         <div class="card-body">
-            <h3 class="table-title">Danh sách sinh viên</h3>
+            <div class="table-header-row">
+                <h3 class="table-title">Danh sách sinh viên</h3>
+                
+                <div class="table-controls">
+                    <span class="sort-label">Sắp xếp:</span>
+                    <button onclick="sortByName()" class="btn-sm">Tên (A-Z)</button>
+                    <button onclick="sortByGPA()" class="btn-sm">GPA (Cao-Thấp)</button>
+                </div>
+            </div>
+
             <div class="table-responsive">
                 <table id="studentTable">
                     <thead>
