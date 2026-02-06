@@ -18,7 +18,6 @@ class Student {
 let studentList = [];
 
 function saveStudent() {
-    // Lấy giá trị
     const id = document.getElementById('id').value;
     const fullName = document.getElementById('fullname').value;
     const dob = document.getElementById('dob').value;
@@ -26,26 +25,25 @@ function saveStudent() {
     const gpa = document.getElementById('gpa').value;
     const editIndex = parseInt(document.getElementById('editIndex').value);
 
-    // Validate
+    // Validate dữ liệu
     if (!id || !fullName || !dob || !classRoom || !gpa) {
         alert("Vui lòng nhập đầy đủ thông tin!");
         return;
     }
 
     if (editIndex === -1) {
-        // Thêm mới
+        // === THÊM MỚI ===
         const isDuplicate = studentList.some(s => s.id === id);
         if (isDuplicate) {
             alert("Mã sinh viên này đã tồn tại!");
             return;
         }
-
         const newStudent = new Student(id, fullName, dob, classRoom, gpa);
         studentList.push(newStudent);
     } else {
-        // Cập nhật
+        // === CẬP NHẬT ===
         studentList[editIndex].updateInfo(fullName, dob, classRoom, gpa);
-        // Cập nhật ID (nếu cần thiết, dù thực tế ít khi đổi ID)
+        // Lưu ý: Logic thực tế thường không cho sửa ID, nhưng nếu muốn giữ tính năng này:
         studentList[editIndex].id = id; 
     }
 
@@ -58,7 +56,7 @@ function renderTable() {
     tableBody.innerHTML = "";
 
     if (studentList.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#888;">Chưa có dữ liệu sinh viên</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#888; padding: 20px;">Chưa có dữ liệu sinh viên</td></tr>`;
         return;
     }
 
@@ -82,6 +80,7 @@ function renderTable() {
 function editStudent(index) {
     const student = studentList[index];
 
+    // Đổ dữ liệu lên form
     document.getElementById('id').value = student.id;
     document.getElementById('fullname').value = student.fullName;
     document.getElementById('dob').value = student.dob;
@@ -90,21 +89,27 @@ function editStudent(index) {
 
     document.getElementById('editIndex').value = index;
 
-    // UI thay đổi khi edit
+    // Thay đổi giao diện nút bấm
     const saveBtn = document.getElementById('saveBtn');
     saveBtn.innerText = "Cập nhật thông tin";
-    saveBtn.classList.remove('btn-primary');
-    saveBtn.classList.add('btn-warning'); // Bạn có thể thêm class màu vàng nếu muốn
-    saveBtn.style.backgroundColor = "#ed8936"; // Màu cam để phân biệt
-
-    document.getElementById('cancelBtn').style.display = "block";
-    document.getElementById('id').disabled = true;
     
-    // Cuộn lên đầu trang form
+    // Đổi màu nút sang màu Cam (warning) để người dùng biết đang sửa
+    saveBtn.classList.remove('btn-primary');
+    saveBtn.classList.add('btn-warning'); 
+    saveBtn.style.backgroundColor = "#ed8936"; 
+
+    // Hiện nút Hủy bỏ
+    document.getElementById('cancelBtn').style.display = "block";
+    
+    // Khóa ô mã sinh viên
+    document.getElementById('id').disabled = true;
+
+    // Cuộn màn hình lên đầu để nhập liệu
     document.querySelector('.card').scrollIntoView({ behavior: 'smooth' });
 }
 
 function resetForm() {
+    // Xóa trắng các ô input
     document.getElementById('id').value = "";
     document.getElementById('fullname').value = "";
     document.getElementById('dob').value = "";
@@ -113,24 +118,29 @@ function resetForm() {
     
     document.getElementById('editIndex').value = "-1";
 
+    // Reset giao diện nút bấm về ban đầu
     const saveBtn = document.getElementById('saveBtn');
     saveBtn.innerText = "Thêm Sinh Viên";
-    saveBtn.style.backgroundColor = ""; // Reset về màu class css
-    
+    saveBtn.classList.add('btn-primary');
+    saveBtn.classList.remove('btn-warning');
+    saveBtn.style.backgroundColor = ""; // Xóa style inline để nhận lại màu từ CSS
+
+    // Ẩn nút Hủy bỏ
     document.getElementById('cancelBtn').style.display = "none";
+    // Mở khóa ô mã sinh viên
     document.getElementById('id').disabled = false;
 }
 
-// Hàm phụ trợ: Format ngày cho đẹp (dd/mm/yyyy)
+// Hàm phụ trợ: Format ngày (yyyy-mm-dd -> dd/mm/yyyy)
 function formatDate(dateString) {
     if (!dateString) return "";
     const [year, month, day] = dateString.split('-');
     return `${day}/${month}/${year}`;
 }
 
-// Hàm phụ trợ: Màu sắc cho GPA
+// Hàm phụ trợ: Màu sắc GPA
 function getColorByGPA(gpa) {
     if (gpa >= 8.0) return "#48bb78"; // Xanh lá
-    if (gpa >= 5.0) return "#d69e2e"; // Vàng
+    if (gpa >= 5.0) return "#d69e2e"; // Vàng cam
     return "#e53e3e"; // Đỏ
 }
