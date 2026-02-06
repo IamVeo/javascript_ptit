@@ -15,13 +15,13 @@ class Student {
     }
 }
 
-// Dữ liệu mẫu ban đầu để test (bạn có thể xóa nếu muốn danh sách trống)
 let studentList = [
     new Student("B36DCCN336", "Trịnh Thị Tuyết Anh", "2036-06-03", "D36CTCN01-B", 3.36),
 ];
 
-// Khởi chạy render lần đầu
-document.addEventListener('DOMContentLoaded', renderTable);
+document.addEventListener('DOMContentLoaded', () => {
+    sortByName();
+});
 
 function saveStudent() {
     const id = document.getElementById('id').value.trim();
@@ -31,7 +31,6 @@ function saveStudent() {
     const gpa = parseFloat(document.getElementById('gpa').value);
     const editIndex = parseInt(document.getElementById('editIndex').value);
 
-    // Validate dữ liệu
     if (!id || !fullName || !dob || !classRoom || isNaN(gpa)) {
         alert("Vui lòng nhập đầy đủ thông tin!");
         return;
@@ -43,7 +42,6 @@ function saveStudent() {
     }
 
     if (editIndex === -1) {
-        // === THÊM MỚI ===
         const isDuplicate = studentList.some(s => s.id === id);
         if (isDuplicate) {
             alert("Mã sinh viên này đã tồn tại!");
@@ -52,14 +50,11 @@ function saveStudent() {
         const newStudent = new Student(id, fullName, dob, classRoom, gpa);
         studentList.push(newStudent);
     } else {
-        // === CẬP NHẬT ===
-        // Kiểm tra xem ID mới có bị trùng với sinh viên KHÁC không (nếu cho sửa ID)
-        // Ở đây ta giả định ID là cố định hoặc logic đơn giản
         studentList[editIndex].updateInfo(fullName, dob, classRoom, gpa);
         studentList[editIndex].id = id; 
     }
 
-    renderTable();
+    sortByName(); 
     resetForm();
 }
 
@@ -68,14 +63,12 @@ function deleteStudent(index) {
     const confirmMsg = `Bạn có chắc chắn muốn xóa sinh viên: ${student.fullName} (${student.id})?`;
     
     if (confirm(confirmMsg)) {
-        studentList.splice(index, 1); // Xóa phần tử khỏi mảng
+        studentList.splice(index, 1); 
         
-        // Nếu đang sửa đúng sinh viên bị xóa thì reset form
         const currentEditIndex = parseInt(document.getElementById('editIndex').value);
         if (currentEditIndex === index) {
             resetForm();
         } else if (currentEditIndex > index) {
-            // Cập nhật lại index đang sửa nếu nó nằm sau phần tử bị xóa
             document.getElementById('editIndex').value = currentEditIndex - 1;
         }
 
@@ -85,15 +78,22 @@ function deleteStudent(index) {
 
 function sortByName() {
     studentList.sort((a, b) => {
-        // Tách tên để sắp xếp chính xác hơn (ví dụ: "Nguyễn Văn An" thì lấy "An")
-        // Tuy nhiên, để đơn giản và hiệu quả với tiếng Việt, ta dùng localeCompare lên toàn bộ chuỗi
-        return a.fullName.localeCompare(b.fullName, 'vi', { sensitivity: 'base' });
+        const nameA = a.fullName.trim().split(" ").pop();
+        const nameB = b.fullName.trim().split(" ").pop();
+
+        const compareResult = nameA.localeCompare(nameB, 'vi', { sensitivity: 'base' });
+
+        if (compareResult === 0) {
+            return a.fullName.localeCompare(b.fullName, 'vi', { sensitivity: 'base' });
+        }
+
+        return compareResult;
     });
+    
     renderTable();
 }
 
 function sortByGPA() {
-    // Sắp xếp giảm dần (Điểm cao lên đầu)
     studentList.sort((a, b) => b.gpa - a.gpa);
     renderTable();
 }
@@ -136,7 +136,6 @@ function editStudent(index) {
 
     document.getElementById('editIndex').value = index;
 
-    // UI thay đổi
     const saveBtn = document.getElementById('saveBtn');
     saveBtn.innerText = "Cập nhật thông tin";
     saveBtn.classList.remove('btn-primary');
@@ -175,8 +174,8 @@ function formatDate(dateString) {
 }
 
 function getColorByGPA(gpa) {
-    if (gpa >= 3.6) return "#48bb78"; // Giỏi - Xanh
-    if (gpa >= 3.2) return "#3182ce"; // Khá - Xanh dương
-    if (gpa >= 2.5) return "#d69e2e"; // Trung bình - Vàng
-    return "#e53e3e"; // Yếu - Đỏ
+    if (gpa >= 3.6) return "#48bb78";
+    if (gpa >= 3.2) return "#3182ce";
+    if (gpa >= 2.5) return "#d69e2e";
+    return "#e53e3e";
 }
