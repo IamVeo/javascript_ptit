@@ -63,8 +63,92 @@
             <input type="number" id="gpa" step="0.1" min="0" max="10" placeholder="Nhập điểm GPA">
         </div>
 
-        <input type="hidden" id="editIndex" value="-1">
-        
+        <input type="hidden" id="editIndex" va<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Sinh Viên</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="main-container">
+    <div class="card">
+        <div class="card-header">
+            <h2>Quản Lý Sinh Viên</h2>
+            <p>Nhập thông tin và quản lý điểm số</p>
+        </div>
+
+        <div class="card-body">
+            <div id="studentForm" class="form-container">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id">Mã Sinh Viên</label>
+                        <input type="text" id="id" placeholder="VD: SV001">
+                    </div>
+                    <div class="form-group">
+                        <label for="fullname">Họ và Tên</label>
+                        <input type="text" id="fullname" placeholder="VD: Nguyễn Văn A">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dob">Ngày Sinh</label>
+                        <input type="date" id="dob">
+                    </div>
+                    <div class="form-group">
+                        <label for="classRoom">Lớp Học</label>
+                        <input type="text" id="classRoom" placeholder="VD: K65-CNTT">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="gpa">Điểm GPA</label>
+                        <input type="number" id="gpa" step="0.1" min="0" max="10" placeholder="0.0 - 10.0">
+                    </div>
+                </div>
+
+                <input type="hidden" id="editIndex" value="-1">
+                
+                <div class="form-actions">
+                    <button onclick="saveStudent()" id="saveBtn" class="btn btn-primary">Thêm Sinh Viên</button>
+                    <button onclick="resetForm()" class="btn btn-secondary" id="cancelBtn">Hủy Bỏ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h3 class="table-title">Danh sách sinh viên</h3>
+            <div class="table-responsive">
+                <table id="studentTable">
+                    <thead>
+                        <tr>
+                            <th>Mã SV</th>
+                            <th>Họ và Tên</th>
+                            <th>Ngày Sinh</th>
+                            <th>Lớp</th>
+                            <th>GPA</th>
+                            <th class="text-center">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
         <button onclick="saveStudent()" id="saveBtn">Thêm Sinh Viên</button>
         <button onclick="resetForm()" class="cancel" id="cancelBtn">Hủy Bỏ</button>
     </div>
