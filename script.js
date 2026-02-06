@@ -37,8 +37,8 @@ function saveStudent() {
         return;
     }
 
-    if(gpa < 0.0 || gpa > 10.0){
-        alert("GPA phải từ 0.0 đến 10.0!");
+    if(gpa < 0.0 || gpa > 4.0){
+        alert("GPA phải từ 0.0 đến 4.0!");
         return;
     }
 
