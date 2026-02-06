@@ -15,24 +15,30 @@ class Student {
     }
 }
 
-let studentList = [];
+// Dữ liệu mẫu ban đầu để test (bạn có thể xóa nếu muốn danh sách trống)
+let studentList = [
+    new Student("B36DCCN336", "Trịnh Thị Tuyết Anh", "2036-06-03", "D36CTCN01-B", 3.36),
+];
+
+// Khởi chạy render lần đầu
+document.addEventListener('DOMContentLoaded', renderTable);
 
 function saveStudent() {
-    const id = document.getElementById('id').value;
-    const fullName = document.getElementById('fullname').value;
+    const id = document.getElementById('id').value.trim();
+    const fullName = document.getElementById('fullname').value.trim();
     const dob = document.getElementById('dob').value;
-    const classRoom = document.getElementById('classRoom').value;
-    const gpa = document.getElementById('gpa').value;
+    const classRoom = document.getElementById('classRoom').value.trim();
+    const gpa = parseFloat(document.getElementById('gpa').value);
     const editIndex = parseInt(document.getElementById('editIndex').value);
 
     // Validate dữ liệu
-    if (!id || !fullName || !dob || !classRoom || !gpa) {
+    if (!id || !fullName || !dob || !classRoom || isNaN(gpa)) {
         alert("Vui lòng nhập đầy đủ thông tin!");
         return;
     }
 
-    if(gpa < 0.0 || gpa > 4.0){
-        alert("GPA không hợp lệ!");
+    if(gpa < 0.0 || gpa > 10.0){
+        alert("GPA phải từ 0.0 đến 10.0!");
         return;
     }
 
@@ -47,13 +53,49 @@ function saveStudent() {
         studentList.push(newStudent);
     } else {
         // === CẬP NHẬT ===
+        // Kiểm tra xem ID mới có bị trùng với sinh viên KHÁC không (nếu cho sửa ID)
+        // Ở đây ta giả định ID là cố định hoặc logic đơn giản
         studentList[editIndex].updateInfo(fullName, dob, classRoom, gpa);
-        // Lưu ý: Logic thực tế thường không cho sửa ID, nhưng nếu muốn giữ tính năng này:
         studentList[editIndex].id = id; 
     }
 
     renderTable();
     resetForm();
+}
+
+function deleteStudent(index) {
+    const student = studentList[index];
+    const confirmMsg = `Bạn có chắc chắn muốn xóa sinh viên: ${student.fullName} (${student.id})?`;
+    
+    if (confirm(confirmMsg)) {
+        studentList.splice(index, 1); // Xóa phần tử khỏi mảng
+        
+        // Nếu đang sửa đúng sinh viên bị xóa thì reset form
+        const currentEditIndex = parseInt(document.getElementById('editIndex').value);
+        if (currentEditIndex === index) {
+            resetForm();
+        } else if (currentEditIndex > index) {
+            // Cập nhật lại index đang sửa nếu nó nằm sau phần tử bị xóa
+            document.getElementById('editIndex').value = currentEditIndex - 1;
+        }
+
+        renderTable();
+    }
+}
+
+function sortByName() {
+    studentList.sort((a, b) => {
+        // Tách tên để sắp xếp chính xác hơn (ví dụ: "Nguyễn Văn An" thì lấy "An")
+        // Tuy nhiên, để đơn giản và hiệu quả với tiếng Việt, ta dùng localeCompare lên toàn bộ chuỗi
+        return a.fullName.localeCompare(b.fullName, 'vi', { sensitivity: 'base' });
+    });
+    renderTable();
+}
+
+function sortByGPA() {
+    // Sắp xếp giảm dần (Điểm cao lên đầu)
+    studentList.sort((a, b) => b.gpa - a.gpa);
+    renderTable();
 }
 
 function renderTable() {
@@ -73,8 +115,9 @@ function renderTable() {
                 <td>${formatDate(student.dob)}</td>
                 <td>${student.classRoom}</td>
                 <td><span style="font-weight:bold; color: ${getColorByGPA(student.gpa)}">${student.gpa}</span></td>
-                <td class="text-center">
-                    <button class="action-btn" onclick="editStudent(${index})">Chỉnh sửa</button>
+                <td class="text-center action-col">
+                    <button class="action-btn edit-btn" onclick="editStudent(${index})">Sửa</button>
+                    <button class="action-btn delete-btn" onclick="deleteStudent(${index})">Xóa</button>
                 </td>
             </tr>
         `;
@@ -85,7 +128,6 @@ function renderTable() {
 function editStudent(index) {
     const student = studentList[index];
 
-    // Đổ dữ liệu lên form
     document.getElementById('id').value = student.id;
     document.getElementById('fullname').value = student.fullName;
     document.getElementById('dob').value = student.dob;
@@ -94,27 +136,20 @@ function editStudent(index) {
 
     document.getElementById('editIndex').value = index;
 
-    // Thay đổi giao diện nút bấm
+    // UI thay đổi
     const saveBtn = document.getElementById('saveBtn');
     saveBtn.innerText = "Cập nhật thông tin";
-    
-    // Đổi màu nút sang màu Cam (warning) để người dùng biết đang sửa
     saveBtn.classList.remove('btn-primary');
     saveBtn.classList.add('btn-warning'); 
     saveBtn.style.backgroundColor = "#ed8936"; 
 
-    // Hiện nút Hủy bỏ
     document.getElementById('cancelBtn').style.display = "block";
-    
-    // Khóa ô mã sinh viên
     document.getElementById('id').disabled = true;
-
-    // Cuộn màn hình lên đầu để nhập liệu
+    
     document.querySelector('.card').scrollIntoView({ behavior: 'smooth' });
 }
 
 function resetForm() {
-    // Xóa trắng các ô input
     document.getElementById('id').value = "";
     document.getElementById('fullname').value = "";
     document.getElementById('dob').value = "";
@@ -123,29 +158,25 @@ function resetForm() {
     
     document.getElementById('editIndex').value = "-1";
 
-    // Reset giao diện nút bấm về ban đầu
     const saveBtn = document.getElementById('saveBtn');
     saveBtn.innerText = "Thêm Sinh Viên";
     saveBtn.classList.add('btn-primary');
     saveBtn.classList.remove('btn-warning');
-    saveBtn.style.backgroundColor = ""; // Xóa style inline để nhận lại màu từ CSS
+    saveBtn.style.backgroundColor = ""; 
 
-    // Ẩn nút Hủy bỏ
     document.getElementById('cancelBtn').style.display = "none";
-    // Mở khóa ô mã sinh viên
     document.getElementById('id').disabled = false;
 }
 
-// Hàm phụ trợ: Format ngày (yyyy-mm-dd -> dd/mm/yyyy)
 function formatDate(dateString) {
     if (!dateString) return "";
     const [year, month, day] = dateString.split('-');
     return `${day}/${month}/${year}`;
 }
 
-// Hàm phụ trợ: Màu sắc GPA
 function getColorByGPA(gpa) {
-    if (gpa >= 3.2) return "#48bb78"; // Xanh lá
-    if (gpa >= 2.5) return "#d69e2e"; // Vàng cam
-    return "#e53e3e"; // Đỏ
+    if (gpa >= 3.6) return "#48bb78"; // Giỏi - Xanh
+    if (gpa >= 3.2) return "#3182ce"; // Khá - Xanh dương
+    if (gpa >= 2.5) return "#d69e2e"; // Trung bình - Vàng
+    return "#e53e3e"; // Yếu - Đỏ
 }
