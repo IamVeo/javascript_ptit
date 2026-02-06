@@ -31,6 +31,11 @@ function saveStudent() {
         return;
     }
 
+    if(gpa < 0.0 || gpa > 4.0){
+        alert("GPA không hợp lệ!");
+        return;
+    }
+
     if (editIndex === -1) {
         // === THÊM MỚI ===
         const isDuplicate = studentList.some(s => s.id === id);
@@ -140,7 +145,7 @@ function formatDate(dateString) {
 
 // Hàm phụ trợ: Màu sắc GPA
 function getColorByGPA(gpa) {
-    if (gpa >= 8.0) return "#48bb78"; // Xanh lá
-    if (gpa >= 5.0) return "#d69e2e"; // Vàng cam
+    if (gpa >= 3.2) return "#48bb78"; // Xanh lá
+    if (gpa >= 2.5) return "#d69e2e"; // Vàng cam
     return "#e53e3e"; // Đỏ
 }
